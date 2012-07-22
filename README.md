@@ -7,4 +7,4 @@ Just open index.html in your browser, no need for a server, everything is client
 
 Its only been tested in latest Chrome, but is believed to work in Firefox and all other *quality* browsers.
 
-It is licensed under [http://www.gnu.org/licenses/agpl-3.0.html](AGPL).
+It is licensed under [AGPL](http://www.gnu.org/licenses/agpl-3.0.html).
