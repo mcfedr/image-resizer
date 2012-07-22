@@ -1,0 +1,136 @@
+body {
+    padding-top: 40px;
+}
+.thumbnail .hero-unit {
+    margin-bottom: 0;
+}
+.project-row > div {
+    padding: 10px;
+}
+.fadeable {
+    -webkit-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+.faded {
+    opacity: 0;
+}
+
+#dropzone {
+    position: relative;
+}
+#dropzone-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.drop-hover .thumbnail {
+    background-color: yellow;
+}
+#dropzone img {
+    width: 100%;
+}
+
+#selection {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.selection-cover {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.selection-cover.north {
+    top: 0;
+}
+.selection-cover.south {
+    bottom: 0;
+}
+.selection-cover.east {
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+.selection-cover.west {
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+#selection-inner {
+    cursor: move;
+    position: absolute;
+}
+#selection-white {
+    border: 2px solid white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+}
+#selection-black {
+    border: 2px dotted black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+#selection-corner {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 5px;
+    height: 5px;
+    cursor: nwse-resize;
+    z-index: 3;
+}
+.border-element {
+    position: absolute;
+    background-color: white;
+}
+.border-element.vertical {
+    width: 1px;
+    height: 30px;
+}
+.border-element.horizontal {
+    width: 30px;
+    height: 1px;
+}
+
+.selection-cover.north .border-element.vertical {
+    bottom: 0;
+}
+
+.selection-cover.south .border-element.vertical {
+    top: 0;
+}
+
+.border-element.vertical.left {
+    left: 0;
+}
+
+.border-element.vertical.right {
+    right: 0;
+}
+
+.selection-cover.north .border-element.horizontal {
+    bottom: 0;
+}
+
+.selection-cover.south .border-element.horizontal {
+    top: 0;
+}
+
+.border-element.horizontal.left {
+    left: -30px;
+}
+
+.border-element.horizontal.right {
+    right: -30px;
+}
