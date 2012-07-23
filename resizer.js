@@ -21,6 +21,7 @@ $(function() {
     dropzoneImage,
     dropzoneImageType = 'image/png',
     dropzoneContent = $('#dropzone-placeholder'),
+	progress = $('#progress'),
     dropzoneImageContainer = $('#dropzone-image-container'),
     dropzonePos = dropzoneImageContainer.offset(),
     createBtn = $('#create'),
@@ -91,6 +92,14 @@ $(function() {
         if (files && files.length > 0) {
             if(files[0].type.indexOf('image/') != -1) {
                 var reader = new FileReader();
+				reader.onprogress = function(e) {
+					if(e.lengthComputable) {
+						progress.css('width', ((e.loaded / e.total) * 100) + '%');
+					}
+					else {
+						progress.css('width', '100%');
+					}
+				};
                 reader.onload = function(e) {
                     if(!dropzoneImage) {
                         dropzoneImage = $(document.createElement('img'));
@@ -406,5 +415,6 @@ $(function() {
         };
         locked = false;
         lockControl.removeClass('active');
+		progress.css('width', 0);
     })
 });
