@@ -59,7 +59,8 @@ $(function() {
     outputWidth = 100,
     outputHeight = 100,
     outputImage,
-    locked = false;
+    locked = false,
+    hasTouch = 'ontouchstart' in window;
 	
     //Add remove highlight on the dropzone
     dropzone.on('dragenter dragleave', function(e) {
@@ -86,6 +87,14 @@ $(function() {
     
     fileControl.on('change', function(e) {
         handleFiles(fileControl[0].files);
+    });
+    
+    $(window).on('resize', function() {
+        if(dropzoneImage) {
+            dropzonePos.width = dropzoneImageContainer.width();
+            dropzonePos.height = dropzoneImageContainer.height();
+            dropzone.css('height', dropzonePos.height + 30);
+        }
     });
     
     function handleFiles(files) {
@@ -131,11 +140,11 @@ $(function() {
     }
     
     //create/replace selection area
-    dropzone.on('mousedown', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
+    dropzone.on(hasTouch ? 'touchstart' : 'mousedown', function(e) {
         if(!locked) {
             if(dropzoneImage) {
+                e.stopPropagation();
+                e.preventDefault();
                 selectionSizePos.top = e.pageY - dropzonePos.top;
                 selectionSizePos.left = e.pageX - dropzonePos.left;
                 setSelectionSize({
@@ -151,10 +160,10 @@ $(function() {
     });
     
 
-    selection.on('mousedown', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
+    selection.on(hasTouch ? 'touchstart' : 'mousedown', function(e) {
         if(!locked) {
+            e.stopPropagation();
+            e.preventDefault();
             //in last 5px square start resize
             var offset = selection.offset();
             if(offset.top + selectionPos.height - e.pageY  < 5 && offset.left + selectionPos.width - e.pageX < 5) {
@@ -175,9 +184,11 @@ $(function() {
     });
     
     //handle mouse movement
-    $(document).on('mousemove', function(e) {
+    $(document).on(hasTouch ? 'touchmove' : 'mousemove', function(e) {
         //when resizeing a selection
         if(selectionSizeActive) {
+            e.stopPropagation();
+            e.preventDefault();
             var currentY = Math.max(0, Math.min(e.pageY - dropzonePos.top, dropzonePos.height)),
             currentX = Math.max(0, Math.min(e.pageX - dropzonePos.left, dropzonePos.width)),
             top = currentY > selectionSizePos.top ? selectionSizePos.top : currentY,
@@ -201,6 +212,8 @@ $(function() {
             createBtn.removeAttr("disabled");
         } //or moving it
         else if(selectionMoveActive) {
+            e.stopPropagation();
+            e.preventDefault();
             var offset = dropzone.offset();
             var mouseY = e.pageY - offset.top;
             var mouseX = e.pageX - offset.left;
@@ -226,7 +239,7 @@ $(function() {
     });
 	
     //always stop action on mouseup
-    $(document).on('mouseup', function(e) {
+    $(document).on(hasTouch ? 'touchend' : 'mouseup', function(e) {
         selectionSizeActive = false;
         selectionMoveActive = false;
         if(!locked && (selectionPos.width == 0 || selectionPos.height == 0)) {
